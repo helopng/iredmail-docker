@@ -13,6 +13,15 @@ ARG HOSTNAME=HOSTNAME
 WORKDIR /opt/iredmail
 ADD static_files/opt/iredmail /opt/iredmail
 
+RUN rpm --import
+"https://pgp.mit.edu/pks/lookup?op=get&amp;search=0xCB2D3A2AA0030E2C" &&
+cat > /etc/yum.repos.d/sogo.repo << EOF
+[sogo-nightly-v5-rhel7]
+name=Inverse SOGo Repository
+baseurl=https://packages.inverse.ca/SOGo/nightly/5/rhel/7/$basearch
+gpgcheck=1
+EOF
+&& yum install -y sogo sogo-activesync
 # All-in-one installation
 RUN yum install -y mariadb-server openssl \
     && curl -o /usr/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64" \
