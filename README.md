@@ -16,19 +16,23 @@ Container is prepared to handle data as persistent using mounted folders for dat
  * /var/lib/clamav
 
 With all information prepared, let's test your new iRedMail server:
-
+这里停掉了原有的自动生成证书，将已有的证书挂载进去
+另外80/443已经被占用了，换8080/8443使用
+时区修改的话 -e "TZ=Asia/Shanghai" 默认是Shanghai
 ```
-docker run -p 80:80 -p 443:443 \
+docker run -p 8080:80 -p 8443:443 \
            -h HOSTNAME.DOMAIN \
-           -e "MYSQL_ROOT_PASSWORD=password" \
+           -e "MYSQL_ROOT_PASSWORD=passw0rd" \
            -e "SOGO_WORKERS=1" \
-           -e "TZ=Europe/Prague" \
-           -e "POSTMASTER_PASSWORD={PLAIN}password" \
+           -e "POSTMASTER_PASSWORD={PLAIN}passw0rd" \
            -e "IREDAPD_PLUGINS=['reject_null_sender', 'reject_sender_login_mismatch', 'greylisting', 'throttle', 'amavisd_wblist', 'sql_alias_access_policy']" \
            -v /srv/iredmail/mysql:/var/lib/mysql \
            -v /srv/iredmail/vmail:/var/vmail \
            -v /srv/iredmail/clamav:/var/lib/clamav \
-           --name=iredmail lejmr/iredmail:mysql-latest
+           -v host.key:/etc/ssl/private/host.key \
+           -v host.crt:/etc/ssl/certs/host.crt \
+           -v host.pem:/var/lib/dkim/host.pem \
+           --name=iredmail orzzz0/iredmail:v1.3.1
 
 ```
 
