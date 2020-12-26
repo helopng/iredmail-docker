@@ -1,7 +1,7 @@
 #docker rmi iredmail --force
 #docker build --no-cache  -t iredmail:latest build
-docker build -t iredmail:centos mysql/
-docker run --rm -ti --name iredmail -h mail.lejmr.com -e MYSQL_ROOT_PASSWORD=milos -e POSTMASTER_PASSWORD={PLAIN}heslo -p 80:80 -p 443:443 iredmail:centos
+docker build -t orzzz0/iredmail:v1.3.1 mysql/
+#docker run --rm -ti --name iredmail -h mail.lejmr.com -e MYSQL_ROOT_PASSWORD=milos -e POSTMASTER_PASSWORD={PLAIN}heslo -p 80:80 -p 443:443 iredmail:centos
 
 
 #rm -rf tmp/mysql/* tmp/vmail/*

@@ -1,5 +1,5 @@
 FROM centos:7
-MAINTAINER Miloš Kozák <milos.kozak@lejmr.com>
+MAINTAINER alex wang <lk1273@163.com>
 
 # Suporting software versions
 ARG IREDMAIL_VERSION=1.3.1
@@ -75,4 +75,4 @@ EXPOSE 80 443 25 587 110 143 993 995
 
 # Default values changable at startup
 ENV SOGO_WORKERS=2
-ENV TZ=Etc/UTC
+ENV TZ=Asia/Shanghai
